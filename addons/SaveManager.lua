@@ -171,10 +171,10 @@ local SaveManager = {} do
 
 			local success, err = self:Load(name)
 			if not success then
-				return self.Library:Notify('Failed to load autoload config: ' .. err)
+				return self.Library:Notify('Failed to load autoload config: ' .. err, 2)
 			end
 
-			self.Library:Notify(string.format('Auto loaded config %q', name))
+			self.Library:Notify(string.format('Auto loaded config %q', name), 2)
 		end
 	end
 
@@ -198,10 +198,10 @@ local SaveManager = {} do
 
 			local success, err = self:Save(name)
 			if not success then
-				return self.Library:Notify('Failed to save config: ' .. err)
+				return self.Library:Notify('Failed to save config: ' .. err, 2)
 			end
 
-			self.Library:Notify(string.format('Created config %q', name))
+			self.Library:Notify(string.format('Created config %q', name), 2)
 
 			Options.SaveManager_ConfigList.Values = self:RefreshConfigList()
 			Options.SaveManager_ConfigList:SetValues()
@@ -211,10 +211,10 @@ local SaveManager = {} do
 
 			local success, err = self:Load(name)
 			if not success then
-				return self.Library:Notify('Failed to load config: ' .. err)
+				return self.Library:Notify('Failed to load config: ' .. err, 2)
 			end
 
-			self.Library:Notify(string.format('Loaded config %q', name))
+			self.Library:Notify(string.format('Loaded config %q', name), 2)
 		end)
 
 		section:AddButton('Overwrite config', function()
@@ -222,17 +222,17 @@ local SaveManager = {} do
 
 			local success, err = self:Save(name)
 			if not success then
-				return self.Library:Notify('Failed to overwrite config: ' .. err)
+				return self.Library:Notify('Failed to overwrite config: ' .. err, 2)
 			end
 
-			self.Library:Notify(string.format('Overwrote config %q', name))
+			self.Library:Notify(string.format('Overwrote config %q', name), 2)
 		end)
 		
 		section:AddButton('Autoload config', function()
 			local name = Options.SaveManager_ConfigList.Value
 			writefile(self.Folder .. '/settings/autoload.txt', name)
 			SaveManager.AutoloadLabel:SetText('Current autoload config: ' .. name)
-			self.Library:Notify(string.format('Set %q to auto load', name))
+			self.Library:Notify(string.format('Set %q to auto load', name), 2)
 		end)
 
 		section:AddButton('Refresh config list', function()
